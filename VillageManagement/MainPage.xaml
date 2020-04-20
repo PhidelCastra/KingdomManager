@@ -1,0 +1,80 @@
+﻿<Page x:Class="VillageManagement.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VillageManagement"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+
+    <Grid Background="#FFD6D6D6">
+        <Label>
+            <Border Width="790" Height="48" Background="#FFA64545">
+                <TextBlock Text="Village Management" FontSize="16" TextWrapping="Wrap" Margin="10,10,516,10" FontFamily="Gauge Heavy"/>
+            </Border>
+        </Label>
+        <StackPanel Orientation="Horizontal" Margin="0,58,0,358">
+            <Button Content="Hinzufügen" Height="25" Width="90" Margin="4,0,4,0" FontFamily="Gauge Heavy" Click="ButtonClick_OpenAddCreaturePage"/>
+            <Button Content="Item Manager" Height="25" Width="90" Margin="4,0,4,0" FontFamily="Gauge Heavy" Click="ButtonClick_OpenWeaponManagerPage"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="3,97,483,319">
+            <Label Content="Steuern (Total) :" FontFamily="Gauge Heavy" Height="30" Width="156" HorizontalAlignment="Left"></Label>
+            <Label x:Name="TotalTaxesLabel" FontFamily="Gauge Heavy" Width="158" HorizontalAlignment="Left" />
+        </StackPanel>
+
+        <ListView x:Name="TribeMemberLV" Margin="322,97,241,10" Background="#FFA2A2A2" SizeChanged="TribeMemberListSetup" FontFamily="Gauge Heavy" SelectionChanged="SelectedChanged_ShowItems">
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChief}" Value="true">
+                            <Setter Property="Background" Value="#FF50AE50" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView x:Name="TribeMemberGV">
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="50">
+                    </GridViewColumn>
+                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="564,97,10,165" x:Name="ItemListView" Background="#FFA2A2A2" Width="226" FontFamily="Gauge Heavy">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Weapon" Width="120" DisplayMemberBinding="{Binding ItemName}"/>
+                    <GridViewColumn Header="Power" Width="80" DisplayMemberBinding="{Binding MagicPower}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Margin="564,290,10,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="*Stammesführer:" Width="150"/>
+                <Label Background="#FF50AE50" Width="50"/>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Text="Stamm" FontFamily="Gauge Heavy" TextWrapping="Wrap" VerticalAlignment="Top" Margin="74,170,0,0" Height="17" Width="54"/>
+        <ComboBox x:Name="TribesCb" 
+                  FontFamily="Gauge Heavy"
+                  FontSize="16"
+                  HorizontalAlignment="Left" 
+                  Margin="6,192,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="172" 
+                  SelectionChanged="TribesCbChanged" >
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <StackPanel Orientation="Horizontal" Margin="10,225,483,198">
+            <Label Content="Steuern (Stamm) :" FontFamily="Gauge Heavy" VerticalAlignment="Top" Width="117" Height="27"/>
+            <Label x:Name="TaxesTxtBox" FontFamily="Gauge Heavy" Width="185" Height="27" />
+        </StackPanel>
+
+    </Grid>
+</Page>

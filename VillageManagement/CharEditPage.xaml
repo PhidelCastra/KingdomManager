@@ -1,0 +1,85 @@
+﻿<Page x:Class="VillageManagement.CharEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VillageManagement"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CharEditPage">
+
+    <Grid Background="#FFD6D6D6">
+        <StackPanel Margin="10,60,10,352">
+            <Label Content="For" FontSize="10" FontFamily="Gauge Heavy"></Label>
+            <Label x:Name="CurrentNameHeaderLabel" FontFamily="Gauge Heavy" FontSize="16" Margin="35, 0, 0, 10"></Label>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="10,98,10,58">
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150" Content="Property" FontWeight="Bold" FontFamily="Gauge Heavy" FontSize="13" />
+                <Label Width="150" Content="Aktueller Wert" HorizontalAlignment="Left" FontFamily="Gauge Heavy" FontWeight="Bold" FontSize="13"/>
+                <Label Width="200" Content="Neuer Wert" HorizontalAlignment="Left" FontFamily="Gauge Heavy" FontWeight="Bold" FontSize="13" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Name</Label>
+                <Label x:Name="CurrentNameLabel" Width="150"/>
+                <TextBox x:Name="NameTextBox" Width="200" KeyUp="Keyup_CheckName" />
+                <Label x:Name="NameValidationLabel" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Alter" Width="150" />
+                <Label x:Name="CurrentAgeLabel" Width="150"/>
+                <TextBox x:Name="AgeTextBox"  Width="200" KeyUp="Keyup_CheckAge"  />
+                <Label x:Name="EmailValidationLabel" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="Eigene Waffen:" Width="350" FontWeight="Bold" FontFamily="Gauge Heavy" FontSize="13"/>
+                <Label Content="Verfügbare Waffen:" Width="150" FontWeight="Bold" FontFamily="Gauge Heavy" FontSize="13" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                <ListBox x:Name="OwnWeaponsListBox" Width="200" Height="100" SelectionChanged="SelectionChanged_ListBox"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding ItemName}" />
+                                <TextBlock Grid.Column="1" Text="{Binding MagicPower}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="Tausche" Width="120" Height="45" Margin="15,0,15,0" Click="ClickBtn_SwapItem" FontFamily="Gauge Heavy" />
+                <ListBox x:Name="AllWeaponsListBox" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" SelectionChanged="SelectionChanged_ListBox" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding ItemName}" />
+                                <TextBlock Grid.Column="1" Text="{Binding MagicPower}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+        <Label Margin="0,0,0,390">
+            <Border Width="790" Height="48" Background="#FFA64545">
+                <TextBlock Text="Character Editor" FontSize="16" TextWrapping="Wrap" Margin="10,10,516,10" FontFamily="Gauge Heavy"/>
+            </Border>
+        </Label>
+        
+        <Border BorderThickness="1" BorderBrush="Black" Margin="10,397,664,10" Background="#FFB6B6B6">
+            <Button Content="Return" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="38" Width="122" 
+                    FontSize="16" FontFamily="Gauge Heavy" Click="BtnClick_ReturnMain"/>
+        </Border>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="141,397,533,10" Background="#FFB6B6B6">
+            <Button x:Name="SaveBtn" Content="Save" IsEnabled="False" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="38" Width="122" 
+                    FontSize="16" FontFamily="Gauge Heavy" Click="Click_Save"/>
+        </Border>
+    </Grid>
+</Page>
