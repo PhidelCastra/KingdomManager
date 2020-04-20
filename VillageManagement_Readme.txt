@@ -3,35 +3,35 @@ Village Management Readme
 Zur Aufgabe "P1 Dorfverwaltung":
 
 Kurz vorweg:
-Ich habe angefangen die gestellte Aufgabe als WPF -anwendung umzusetzen. Da ich in WPF noch nicht wirklich bewandert bin, möge man mir einige Design -"Entscheidungen" nicht übel nehmen. 
-Hierzu gehört zum Beispiel auch, dass Änderungen bezüglich der Fenstergröße zu recht fehlerhaften Verhalten führen können...
-An etlichen Sachen arbeite ich noch und hoffe diese, bis zur Abgabe der "Königreich" -hausaufgabe, in den Griff zu bekommen.
+Ich habe angefangen die gestellte Aufgabe als WPF -anwendung umzusetzen. Da ich in WPF noch nicht wirklich bewandert bin, mÃ¶ge man mir einige Design -"Entscheidungen" nicht Ã¼bel nehmen. 
+Hierzu gehÃ¶rt zum Beispiel auch, dass Ã„nderungen bezÃ¼glich der FenstergrÃ¶ÃŸe zu recht fehlerhaften Verhalten fÃ¼hren kÃ¶nnen...
+An etlichen Sachen arbeite ich noch und hoffe diese, bis zur Abgabe der "KÃ¶nigreich" -hausaufgabe, in den Griff zu bekommen.
 
 Navigation:
-Das Hauptfenster zeigt die gesamten Steuern, sowie auch die Steuern des ausgewählten Stammes an. Der Stamm kann in der Combobox unter dem Label "Stamm" ausgewählt werden. 
-Die Mitglieder des gewählten Stammes sind in der ersten Liste zu sehen (Führer sind farblich hervorgehoben). 
-Ist ein Stammesmitglied ausgewählt, so erscheinen dessen Waffen in der rechten Liste.
+Das Hauptfenster zeigt die gesamten Steuern, sowie auch die Steuern des ausgewÃ¤hlten Stammes an. Der Stamm kann in der Combobox unter dem Label "Stamm" ausgewÃ¤hlt werden. 
+Die Mitglieder des gewÃ¤hlten Stammes sind in der ersten Liste zu sehen (FÃ¼hrer sind farblich hervorgehoben). 
+Ist ein Stammesmitglied ausgewÃ¤hlt, so erscheinen dessen Waffen in der rechten Liste.
 
-Ein Rechts-Click auf ein Stammesmitglied öffnet ein Menü können später verschiedene Reiter gewählt werden - Zum jetzigen Zeitpunkt existiert nur die Option "Edit" 
-Im „Edit“ -fenster können Name und Alter des Mitglieds geändert werden. Ebenso können Ausrüstungsgegenstände hinzugefügt oder entfernt werden. Das Management der Ausrüstungsgegenstände soll später in ein seperates Menü. 
-Wenn mindestens einer der Werte „Alter“ oder „Name“ geändert wurde und valide ist, kann gespeichert werden. Der Austausch von Waffen wird bei jeder „Tausche“ -aktion übernommen, muss also nicht gespeichert werden.
-Die Liste „Eigene Waffen“ zeigt alle Waffen welche sich im Besitz des Charakters befinden, die Liste „Verfügbare Waffen“ zeigt Waffen an welche noch von keinem Charakters zugeordnet sind.
-Über die Schaltfläche „Return“ gelangt man zurück in die Hauptansicht.
+Ein Rechts-Click auf ein Stammesmitglied Ã¶ffnet ein MenÃ¼ kÃ¶nnen spÃ¤ter verschiedene Reiter gewÃ¤hlt werden - Zum jetzigen Zeitpunkt existiert nur die Option "Edit" 
+Im â€Editâ€œ -fenster kÃ¶nnen Name und Alter des Mitglieds geÃ¤ndert werden. Ebenso kÃ¶nnen AusrÃ¼stungsgegenstÃ¤nde hinzugefÃ¼gt oder entfernt werden. Das Management der AusrÃ¼stungsgegenstÃ¤nde soll spÃ¤ter in ein seperates MenÃ¼. 
+Wenn mindestens einer der Werte â€Alterâ€œ oder â€Nameâ€œ geÃ¤ndert wurde und valide ist, kann gespeichert werden. Der Austausch von Waffen wird bei jeder â€Tauscheâ€œ -aktion Ã¼bernommen, muss also nicht gespeichert werden.
+Die Liste â€Eigene Waffenâ€œ zeigt alle Waffen welche sich im Besitz des Charakters befinden, die Liste â€VerfÃ¼gbare Waffenâ€œ zeigt Waffen an welche noch von keinem Charakters zugeordnet sind.
+Ãœber die SchaltflÃ¤che â€Returnâ€œ gelangt man zurÃ¼ck in die Hauptansicht.
 
 Charakter erstellen:
-Über die Schaltfläche „Hinzufügen“ gelangt der Nutzer in eine neue Ansicht. Das Speicher eines neuen Stammesmitgliedes ist erst möglich wenn sämtliche Felder beschrieben und validiert sind (maximale/minimale Länge des Inputs / Nummerische Überprüfung usw.). 
-Bei der Wahl eines Typen, werden in der Stammesliste alle in Frage kommenden Stämme zur Auswahl angezeigt. Um den Charakters zu speichern muss ein Typ und ein Stamm gewählt worden sein. 
-Im Prinzip ist es möglich sämtliche Typen zu erstellen, da über die Grundeinstellungen zur Zeit jedoch nur Zwerg- und Elfenstämme geladen werden, können auch nur jene Typen instantiiert werden.
-In der Application soll es später natürlich möglich sein Stämme für alle Typen zu erstellen.
+Ãœber die SchaltflÃ¤che â€HinzufÃ¼genâ€œ gelangt der Nutzer in eine neue Ansicht. Das Speicher eines neuen Stammesmitgliedes ist erst mÃ¶glich wenn sÃ¤mtliche Felder beschrieben und validiert sind (maximale/minimale LÃ¤nge des Inputs / Nummerische ÃœberprÃ¼fung usw.). 
+Bei der Wahl eines Typen, werden in der Stammesliste alle in Frage kommenden StÃ¤mme zur Auswahl angezeigt. Um den Charakters zu speichern muss ein Typ und ein Stamm gewÃ¤hlt worden sein. 
+Im Prinzip ist es mÃ¶glich sÃ¤mtliche Typen zu erstellen, da Ã¼ber die Grundeinstellungen zur Zeit jedoch nur Zwerg- und ElfenstÃ¤mme geladen werden, kÃ¶nnen auch nur jene Typen instantiiert werden.
+In der Application soll es spÃ¤ter natÃ¼rlich mÃ¶glich sein StÃ¤mme fÃ¼r alle Typen zu erstellen.
 
 Item Manager:
-Über den Item Manager ist es möglich neue Waffen zu erstellen. Hierzu ist unter „Kategorie“ die gewünschte Gattung zu wählen und ein „Power“ -wert  einzutragen. Anschließend ist es möglich zu speichern. Die erstellten Waffen tauchen anschließend rechts in der Liste „Waffen“ auf. 
-In der Liste tauchen ebenso sämtliche Waffen auf, welche noch nicht an einen Charakter vergeben sind. Neu erstellte Waffen können einem Charakter über den Edit -funktion, oder einem neuen Charakter in der Ansicht zum erstellen eines jenen, zugewiesen werden. 
+Ãœber den Item Manager ist es mÃ¶glich neue Waffen zu erstellen. Hierzu ist unter â€Kategorieâ€œ die gewÃ¼nschte Gattung zu wÃ¤hlen und ein â€Powerâ€œ -wert  einzutragen. AnschlieÃŸend ist es mÃ¶glich zu speichern. Die erstellten Waffen tauchen anschlieÃŸend rechts in der Liste â€Waffenâ€œ auf. 
+In der Liste tauchen ebenso sÃ¤mtliche Waffen auf, welche noch nicht an einen Charakter vergeben sind. Neu erstellte Waffen kÃ¶nnen einem Charakter Ã¼ber den Edit -funktion, oder einem neuen Charakter in der Ansicht zum erstellen eines jenen, zugewiesen werden. 
 
-Die Höhe der Steuern, die auf den Betroffenen Stamm erhoben werden erhöhen sich mit jeder in den Stamm integrierten Waffe. Die aktuellen Steuern auf einzelne Stämme kann, wie bereits beschrieben, im Hauptfenster begutachtet werden.
+Die HÃ¶he der Steuern, die auf den Betroffenen Stamm erhoben werden erhÃ¶hen sich mit jeder in den Stamm integrierten Waffe. Die aktuellen Steuern auf einzelne StÃ¤mme kann, wie bereits beschrieben, im Hauptfenster begutachtet werden.
 
-Hiermit soll die Einführung auch erst einmal enden. Ich hoffe das Programm, bis zur Abgabe des „Königreichs“, beenden zu können.
+Hiermit soll die EinfÃ¼hrung auch erst einmal enden. Ich hoffe das Programm, bis zur Abgabe des â€KÃ¶nigreichsâ€œ, beenden zu kÃ¶nnen.
 
-Und nun wünsche ich noch recht viel Vergnügen und unzählige spaßige Stunden mit meiner App... 
+Und nun wÃ¼nsche ich noch recht viel VergnÃ¼gen und unzÃ¤hlige spaÃŸige Stunden mit meiner App... 
 
-Ihr allseits verehrter Philipp Klauschke
+Ihr allseits verehrter Phidel Castro
