@@ -16,6 +16,7 @@ using VillageManagement.Library;
 using VillageManagement.Library.BaseItems;
 using VillageManagement.Library.Creatures;
 using VillageManagement.Library.Items;
+using VillageManagement.Library.Tribes;
 
 namespace VillageManagement
 {
@@ -24,7 +25,7 @@ namespace VillageManagement
     /// </summary>
     public partial class MainPage : Page
     {
-        private string _selectedTribeName;
+        private Tribe<Creature> _selectedTribe;
 
         private Kingdom _kingdom;
 
@@ -50,13 +51,20 @@ namespace VillageManagement
             }
 
             _kingdom.Tribes.ForEach(tribe => {
-                TribesCb.Items.Add(tribe.Name);
+                TribesCb.Items.Add(tribe);
             });
 
             TribesCb.SelectedIndex = 0;
-            _selectedTribeName = TribesCb.SelectedItem as string;
+            if(ComponentService.SelectedTribe != null)
+            {
+                TribesCb.SelectedItem = ComponentService.SelectedTribe;
+            }
+
+            _selectedTribe = TribesCb.SelectedItem as Tribe<Creature>;
 
             TotalTaxesLabel.Content = GetTotalTaxes();
+
+            UpdateTypeLabel();
         }
 
         /// <summary>
@@ -88,9 +96,14 @@ namespace VillageManagement
             var a = list.ActualWidth - SystemParameters.VerticalScrollBarWidth;
             var col1 = 0.55;
             var col2 = 0.45;
+            var col3 = 0.45;
 
-            TribeMemberGV.Columns[0].Width = a * col1;
-            TribeMemberGV.Columns[1].Width = a * col2;
+            //TribeMemberGV.Columns[0].Width = a * col1;
+            //TribeMemberGV.Columns[1].Width = a * col2;
+            //if(TribeMemberGV.Columns.Count > 2)
+            //{
+            //    TribeMemberGV.Columns[2].Width = col3;
+            //}
         }
 
         /// <summary>
@@ -100,29 +113,31 @@ namespace VillageManagement
         /// <param name="e"></param>
         private void TribesCbChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedTribeName = TribesCb.SelectedItem as string;
+            _selectedTribe = TribesCb.SelectedItem as Tribe<Creature>;
 
-            var currentSelectedTribe = _kingdom.Tribes.FirstOrDefault(t => t.Name == _selectedTribeName);
+            var currentSelectedTribe = _kingdom.Tribes.FirstOrDefault(t => t == _selectedTribe);
 
             TribeMemberLV.ItemsSource = currentSelectedTribe.Tribesmen;
             TribeMemberLV.ContextMenu = CreateContextMenu();
 
             _calculator = new Calculator(_taxesForOneItem);
             TaxesTxtBox.Content = _calculator.CalculateTaxesOfTribe(currentSelectedTribe.Tribesmen).ToString();
+
+            UpdateTypeLabel();
         }
 
         private ContextMenu CreateContextMenu()
         {
             var contextMenu = new ContextMenu();
 
-            var menuItem = new MenuItem
-            {
-                Header = "Edit"
-            };
+            var menuItemEdit = new MenuItem { Header = "Edit" };
+            var menuItemWeaponManager = new MenuItem { Header = "Item Manager" };
 
-            menuItem.Click += new RoutedEventHandler(ItemClick_CharacterEditor);
+            menuItemEdit.Click += new RoutedEventHandler(ItemClick_CharacterEditor);
+            menuItemWeaponManager.Click += new RoutedEventHandler(ItemClick_ItemManager);
 
-            contextMenu.Items.Add(menuItem);
+            contextMenu.Items.Add(menuItemEdit);
+            contextMenu.Items.Add(menuItemWeaponManager);
             return contextMenu;
         }
 
@@ -137,7 +152,18 @@ namespace VillageManagement
             ComponentService.Kingdom = _kingdom;
 
             var charEditPage = new CharEditPage();
+            SendSelectedTribe();
             ComponentService.GetFrame().Content = charEditPage;
+        }
+
+        private void ItemClick_ItemManager(object sender, RoutedEventArgs e)
+        {
+            ComponentService.SelectedCreature = TribeMemberLV.SelectedItem as Creature;
+            ComponentService.Kingdom = _kingdom;
+
+            var itemManagementPage = new ItemManagement();
+            SendSelectedTribe();
+            ComponentService.GetFrame().Content = itemManagementPage;
         }
 
         private void SelectedChanged_ShowItems(object sender, SelectionChangedEventArgs e)
@@ -155,13 +181,49 @@ namespace VillageManagement
         private void ButtonClick_OpenAddCreaturePage(object sender, RoutedEventArgs e)
         {
             ComponentService.Kingdom = _kingdom;
+            SendSelectedTribe();
             ComponentService.GetFrame().Content = new AddCreaturePage();
         }
 
         private void ButtonClick_OpenWeaponManagerPage(object sender, RoutedEventArgs e)
         {
             ComponentService.Kingdom = _kingdom;
+            SendSelectedTribe();
             ComponentService.GetFrame().Content = new WeaponManagerPage();
+        }
+
+        private void ButtonClick_OpenTribeCreator(object sender, RoutedEventArgs e)
+        {
+            ComponentService.Kingdom = _kingdom;
+            SendSelectedTribe();
+            ComponentService.GetFrame().Content = new AddTribe();
+        }
+
+        private void UpdateTypeLabel()
+        {
+            var types = _selectedTribe.AcceptableIntakes;
+            string txt = "";
+            var sectionCounter = 0;
+            var maxCount = 4;
+            for(var i = 0; i < types.Count; i++)
+            {
+                if(sectionCounter >= maxCount) { txt += "\n"; sectionCounter = 0; }
+                sectionCounter++;
+                if(i < 1)
+                {
+                    txt += types[i];
+                    continue;
+                }
+
+                txt += " ," + types[i];
+            }
+
+            CreatureTypeLabel.Content = txt;
+        }
+
+        private void SendSelectedTribe()
+        {
+            ComponentService.SelectedTribe = TribesCb.SelectedItem as Tribe<Creature>;
         }
     }
 }

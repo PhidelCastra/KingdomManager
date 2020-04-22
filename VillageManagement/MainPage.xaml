@@ -9,72 +9,92 @@
       Title="MainPage">
 
     <Grid Background="#FFD6D6D6">
-        <Label>
-            <Border Width="790" Height="48" Background="#FFA64545">
+        <StackPanel Orientation="Vertical" Margin="0,0,0,378">
+            <Label Margin="5,5,5,5" Background="#FFA64545" VerticalAlignment="Center">
+            <Border Width="790" Height="48">
                 <TextBlock Text="Village Management" FontSize="16" TextWrapping="Wrap" Margin="10,10,516,10" FontFamily="Gauge Heavy"/>
             </Border>
-        </Label>
-        <StackPanel Orientation="Horizontal" Margin="0,58,0,358">
-            <Button Content="Hinzufügen" Height="25" Width="90" Margin="4,0,4,0" FontFamily="Gauge Heavy" Click="ButtonClick_OpenAddCreaturePage"/>
-            <Button Content="Item Manager" Height="25" Width="90" Margin="4,0,4,0" FontFamily="Gauge Heavy" Click="ButtonClick_OpenWeaponManagerPage"/>
+            </Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="3,97,483,319">
-            <Label Content="Steuern (Total) :" FontFamily="Gauge Heavy" Height="30" Width="156" HorizontalAlignment="Left"></Label>
-            <Label x:Name="TotalTaxesLabel" FontFamily="Gauge Heavy" Width="158" HorizontalAlignment="Left" />
-        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="5,68,5,10" Background="#FFB9BBBB">
+            <StackPanel Orientation="Horizontal" Background="#FF999999" Margin="5">
+                <Button Content="Add Character" Height="25" Width="100" Margin="4" FontFamily="Gauge Heavy" Click="ButtonClick_OpenAddCreaturePage" />
+                <Button Content="Add Item" Height="25" Width="100" Margin="4" FontFamily="Gauge Heavy" Click="ButtonClick_OpenWeaponManagerPage" />
+                <Button Content="Add Tribe" Height="25" Width="100" Margin="4" FontFamily="Gauge Heavy" Click="ButtonClick_OpenTribeCreator" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="343">
+                <StackPanel Orientation="Vertical" Width="258">
+                    <StackPanel Orientation="Horizontal" Background="#FFB9BBBB">
+                        <Label Content="Steuern (Total) :" FontFamily="Gauge Heavy" Height="30" Width="156" HorizontalAlignment="Left" />
+                        <Label x:Name="TotalTaxesLabel" FontFamily="Gauge Heavy" Width="132" Height="30" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <Label HorizontalAlignment="Stretch" Content="Stamm" FontFamily="Gauge Heavy" VerticalAlignment="Top" Margin="50,5,50,5" />
+                        <ComboBox x:Name="TribesCb" DisplayMemberPath="Name"
+                          FontFamily="Gauge Heavy"
+                          FontSize="14"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" 
+                          Width="172" 
+                          SelectionChanged="TribesCbChanged" >
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#FFF0F0F0"/>
+                                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                        </ComboBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Steuern (Stamm) :" FontFamily="Gauge Heavy" VerticalAlignment="Top" Width="117" Height="27"/>
+                            <Label x:Name="TaxesTxtBox" FontFamily="Gauge Heavy" Width="185" Height="27" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0" Width="292">
+                        <StackPanel Orientation="Vertical" Background="#FF999999">
+                            <Label Content="Besteht aus:" Margin="5,0,5,0" FontFamily="Gauge Heavy" />
+                            <Label x:Name="CreatureTypeLabel" Margin="5,0,5,5" FontFamily="Gauge Heavy" FontSize="14" Height="43" />
+                        </StackPanel>
+                        <ListView x:Name="TribeMemberLV" Margin="0,5,0,0" Background="#FFA2A2A2" FontFamily="Gauge Heavy" 
+                            SizeChanged="TribeMemberListSetup" SelectionChanged="SelectedChanged_ShowItems" Width="Auto" Height="247" HorizontalAlignment="Left" >
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChief}" Value="true">
+                                        <Setter Property="Background" Value="#FF50AE50" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView x:Name="TribeMemberGV">
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120" />
+                                <GridViewColumn Header="Alter" DisplayMemberBinding="{Binding Age}" Width="70" />
+                                <GridViewColumn Header="Spezies" DisplayMemberBinding="{Binding CreatureType}" Width="90" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <ListView x:Name="ItemListView" Margin="0,0,0,5" Background="#FFA2A2A2" Width="226" FontFamily="Gauge Heavy" Height="227">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Weapon" Width="120" DisplayMemberBinding="{Binding ItemName}"/>
+                                    <GridViewColumn Header="Power" Width="80" DisplayMemberBinding="{Binding MagicPower}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <StackPanel Background="#FF999999" Orientation="Vertical" Height="94">
+                            <StackPanel Orientation="Horizontal" Margin="5,2,5,2">
+                                <TextBlock Text="*Stammesführer:" Width="150"/>
+                                <Label Background="#FF50AE50" Width="50"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
 
-        <ListView x:Name="TribeMemberLV" Margin="322,97,241,10" Background="#FFA2A2A2" SizeChanged="TribeMemberListSetup" FontFamily="Gauge Heavy" SelectionChanged="SelectedChanged_ShowItems">
-            <ListView.Resources>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsChief}" Value="true">
-                            <Setter Property="Background" Value="#FF50AE50" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.Resources>
-            <ListView.View>
-                <GridView x:Name="TribeMemberGV">
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="50">
-                    </GridViewColumn>
-                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" Width="50"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView Margin="564,97,10,165" x:Name="ItemListView" Background="#FFA2A2A2" Width="226" FontFamily="Gauge Heavy">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Weapon" Width="120" DisplayMemberBinding="{Binding ItemName}"/>
-                    <GridViewColumn Header="Power" Width="80" DisplayMemberBinding="{Binding MagicPower}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <StackPanel Margin="564,290,10,10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="*Stammesführer:" Width="150"/>
-                <Label Background="#FF50AE50" Width="50"/>
             </StackPanel>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Text="Stamm" FontFamily="Gauge Heavy" TextWrapping="Wrap" VerticalAlignment="Top" Margin="74,170,0,0" Height="17" Width="54"/>
-        <ComboBox x:Name="TribesCb" 
-                  FontFamily="Gauge Heavy"
-                  FontSize="16"
-                  HorizontalAlignment="Left" 
-                  Margin="6,192,0,0" 
-                  VerticalAlignment="Top" 
-                  Width="172" 
-                  SelectionChanged="TribesCbChanged" >
-            <ComboBox.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="#FFF0F0F0"/>
-                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
-                </LinearGradientBrush>
-            </ComboBox.Background>
-        </ComboBox>
-        <StackPanel Orientation="Horizontal" Margin="10,225,483,198">
-            <Label Content="Steuern (Stamm) :" FontFamily="Gauge Heavy" VerticalAlignment="Top" Width="117" Height="27"/>
-            <Label x:Name="TaxesTxtBox" FontFamily="Gauge Heavy" Width="185" Height="27" />
-        </StackPanel>
-
     </Grid>
 </Page>

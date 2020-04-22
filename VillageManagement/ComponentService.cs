@@ -21,6 +21,8 @@ namespace VillageManagement
 
         public static ObservableCollection<Weapon> AvailableWeapons = new ObservableCollection<Weapon>();
 
+        public static Tribe<Creature> SelectedTribe;    
+
         public static void RequireFrame(Frame frame)
         {
             _frame = frame;

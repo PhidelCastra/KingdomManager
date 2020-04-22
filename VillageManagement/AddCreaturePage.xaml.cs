@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VillageManagement.ExceptionHandling.Exceptions;
 using VillageManagement.Library.Creatures;
 using VillageManagement.Library.Tribes;
 using VillageManagement.Validation;
@@ -59,6 +60,13 @@ namespace VillageManagement
                 TribesListBox.SelectedIndex = 0;
                 SelectedTribe = TribesListBox.SelectedItem as Tribe<Creature>;
             }
+
+            if(TypeListBox.SelectedItem != null)
+            {
+                var selectedType = (CreatureType)TypeListBox.SelectedItem;
+                var allowedTribes = Tribes.Where(tribe => tribe.AcceptableIntakes.Contains(selectedType));
+                TribesListBox.ItemsSource = allowedTribes;
+            }
         }
 
         private void ButtonClick_Return(object sender, RoutedEventArgs e)
@@ -75,17 +83,17 @@ namespace VillageManagement
             if (!validationMsg.IsValid)
             {
                 _isAgeValid = false;
-                _validationHandler.SetBadNewsLabel(EmailValidationLabel, validationMsg.Message);
+                _validationHandler.SetBadNewsLabel(FoundationValidationLabel, validationMsg.Message);
+            }
+            else
+            {
+                _isAgeValid = true;
 
-                return;
+                _validationHandler.SetDefaultLabel(FoundationValidationLabel);
+
+                int.TryParse(newAgeTxtBox.Text, out _age);
             }
             
-            _isAgeValid = true;
-
-            _validationHandler.SetDefaultLabel(EmailValidationLabel);
-
-            int.TryParse(newAgeTxtBox.Text, out _age);
-
             CheckSaveBtn();
         }
 
@@ -98,15 +106,15 @@ namespace VillageManagement
             {
                 _isNameValid = false;
                 _validationHandler.SetBadNewsLabel(NameValidationLabel, validationMsg.Message);
-
-                return;
             }
+            else
+            {
+                _isNameValid = true;
 
-            _isNameValid = true;
+                _validationHandler.SetDefaultLabel(NameValidationLabel);
 
-            _validationHandler.SetDefaultLabel(NameValidationLabel);
-
-            _name = nameTxtBox.Text;
+                _name = nameTxtBox.Text;
+            }
 
             CheckSaveBtn();
         }
@@ -114,22 +122,38 @@ namespace VillageManagement
         private void Click_Save(object sender, RoutedEventArgs e)
         {
             var type = (CreatureType)TypeListBox.SelectedItem;
-            if (type == CreatureType.Zwerg)
+
+            Creature creature;
+            switch (type)
             {
-                var creature = new Dwarf(_name, _age);
-                SelectedTribe.AddTribesman(creature);
-
-                CreatureStoryLabel.Content = $"Ein neuer {type} namens '{creature.Name}' betritt in seinem {creature.Age}. Jahr das Reich \n " +
-                    $"und schließt sich dem Stam '{SelectedTribe.Name}' an.";
-
-                return;
+                case CreatureType.Zwerg:
+                    creature = new Dwarf(_name, _age);
+                    break;
+                case CreatureType.Elb:
+                    creature = new Elf(_name, _age);
+                    break;
+                case CreatureType.Mensch:
+                    creature = new Human(_name, _age);
+                    break;
+                case CreatureType.Hobbit:
+                    creature = new Hobbit(_name, _age);
+                    break;
+                case CreatureType.Ork:
+                    creature = new Ork(_name, _age);
+                    break;
+                case CreatureType.Gnom:
+                    creature = new Gnome(_name, _age);
+                    break;
+                case CreatureType.Hochelf:
+                    creature = new HighElf(_name, _age);
+                    break;
+                default:
+                    throw new CreatureTypeNotAvailableException(type.ToString());
             }
 
-            var nCr = new Dwarf(_name, _age);
-            SelectedTribe.AddTribesman(nCr);
-
-            CreatureStoryLabel.Content = $"Ein neuer {type.ToString()} namens '{nCr.Name}' betritt in seinem {nCr.Age}. Jahr das Reich \n " +
-                $"und schließt sich dem Stam '{SelectedTribe.Name}' an.";
+            SelectedTribe.AddTribesman(creature);
+            CreatureStoryLabel.Content = $"Ein neuer {type} namens '{creature.Name}' betritt in seinem {creature.Age}. Jahr das Reich \n " +
+                    $"und schließt sich dem Stam '{SelectedTribe.Name}' an.";
         }
 
         private void SelectionChangedListBox_ClickTribe(object sender, SelectionChangedEventArgs e)

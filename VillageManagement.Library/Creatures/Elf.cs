@@ -11,5 +11,11 @@ namespace VillageManagement.Library.Creatures
             : base(name, age, CreatureType.Elb)
         {
         }
+
+        protected Elf(string name, int age, CreatureType type)
+            : base(name, age, type)
+        {
+
+        }
     }
 }

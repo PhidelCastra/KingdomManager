@@ -64,7 +64,6 @@ namespace VillageManagement.Library
 
             dwarf1.AddItem(axt1);
             dwarf1.AddItem(sword1);
-
             dwarf2.AddItem(axt2);
 
             dwarf3.AddItem(magicStick1);

@@ -53,13 +53,9 @@ namespace VillageManagement
 
             CurrentNameHeaderLabel.Content = ComponentService.SelectedCreature.Name;
 
-            AllWeaponsListBox.ItemsSource = ComponentService.AvailableWeapons;
-            AllWeaponsListBox.SelectedIndex = -1;
-
-            OwnWeaponsListBox.ItemsSource = ComponentService.SelectedCreature.Items.GetWeapons();
-            OwnWeaponsListBox.SelectedIndex = -1;
-
             _defaultTextColor = Brushes.Black;
+
+            CurrentNameHeaderLabel.Content = ComponentService.SelectedCreature.Name + $" ({ComponentService.SelectedCreature.CreatureType})";
         }
 
         private void BtnClick_ReturnMain(object sender, RoutedEventArgs e)
@@ -184,41 +180,6 @@ namespace VillageManagement
             }
 
             return nr;
-        }
-
-        private void ClickBtn_SwapItem(object sender, RoutedEventArgs e)
-        {
-            if(AllWeaponsListBox.SelectedItem != null)
-            {
-                var selected = AllWeaponsListBox.SelectedItem as Weapon;
-                ComponentService.SelectedCreature.AddItem(selected);
-                ComponentService.AvailableWeapons.Remove(selected);
-
-                OwnWeaponsListBox.ItemsSource = ComponentService.SelectedCreature.Items.GetWeapons();
-            }
-
-            if(OwnWeaponsListBox.SelectedItem != null)
-            {
-                var selected = OwnWeaponsListBox.SelectedItem as Weapon;
-                ComponentService.SelectedCreature.RemoveItem(selected);
-                ComponentService.AvailableWeapons.Add(selected);
-
-                OwnWeaponsListBox.ItemsSource = ComponentService.SelectedCreature.Items.GetWeapons();
-            }
-        }
-
-        private void SelectionChanged_ListBox(object sender, SelectionChangedEventArgs e)
-        {
-            var listBox = sender as ListBox;
-            if (listBox == AllWeaponsListBox)
-            {
-                OwnWeaponsListBox.SelectedIndex = -1;
-            }
-
-            if (listBox == OwnWeaponsListBox)
-            {
-                AllWeaponsListBox.SelectedIndex = -1;
-            }
         }
     }
 }

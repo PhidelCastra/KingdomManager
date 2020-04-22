@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VillageManagement.ExceptionHandling.Exceptions;
 using VillageManagement.Library.Creatures;
 
 namespace VillageManagement.Library.Tribes
@@ -86,6 +87,11 @@ namespace VillageManagement.Library.Tribes
             if(Tribesmen.FirstOrDefault(c => c.CreatureID == creature.CreatureID) != null)
             {
                 throw new MulticastNotSupportedException($"Tribe '{Name}' includes already Creature: '{creature.Name}' with ID: '{creature.CreatureID}'.");
+            }
+
+            if(!AcceptableIntakes.Exists(type => type == creature.CreatureType))
+            {
+                throw new CreatureTypeIsNotAllowedException(creature.CreatureType.ToString(), Name);
             }
 
             Tribesmen.Add(creature);

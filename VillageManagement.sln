@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VillageManagement", "Villag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VillageManagement.Library", "VillageManagement.Library\VillageManagement.Library.csproj", "{0DCA8D24-9682-47C2-91C4-BF0B65130FDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillageManagement.ExceptionHandling", "VillageManagement.ExceptionHandling\VillageManagement.ExceptionHandling.csproj", "{83740C0D-6F73-42FE-AD5C-1889D69A16F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0DCA8D24-9682-47C2-91C4-BF0B65130FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCA8D24-9682-47C2-91C4-BF0B65130FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DCA8D24-9682-47C2-91C4-BF0B65130FDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83740C0D-6F73-42FE-AD5C-1889D69A16F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83740C0D-6F73-42FE-AD5C-1889D69A16F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83740C0D-6F73-42FE-AD5C-1889D69A16F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83740C0D-6F73-42FE-AD5C-1889D69A16F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

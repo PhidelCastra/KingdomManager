@@ -1,0 +1,55 @@
+﻿<Page x:Class="VillageManagement.AddTribe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VillageManagement"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddTribe">
+
+    <Grid Background="#FFD6D6D6">
+        <Label>
+            <Border Width="790" Height="48" Background="#FFA64545">
+                <TextBlock Text="Erstelle einen neuen Stamm" FontSize="16" TextWrapping="Wrap" Margin="10,10,516,10" FontFamily="Gauge Heavy"/>
+            </Border>
+        </Label>
+        <StackPanel Orientation="Vertical" Margin="10,62,10,10" Background="#FFBBBBBB">
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                <Label Content="Name" Width="150" FontFamily="Gauge Heavy" />
+                <TextBox x:Name="NameTxtBox" Width="200" KeyUp="Keyup_CheckName" />
+                <Label x:Name="NameValidationLabel" FontFamily="Gauge Heavy" Width="200" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                <Label Content="Besteht seit" Width="150" FontFamily="Gauge Heavy" />
+                <TextBox x:Name="AgeTxtBox" Width="70" KeyUp="Keyup_CheckAge" />
+                <Label Content="Jahren" Width="130" FontFamily="Gauge Heavy" />
+                <Label x:Name="FoundationValidationLabel" Width="200" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="Bewohnbar von:" FontFamily="Gauge Heavy" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Im Stamm" FontFamily="Gauge Heavy" Width="150"/>
+                <ListBox x:Name="OwnTypesListBox" Width="200" MinHeight="100" SelectionChanged="SelectionChanged_ListBox"/>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Alle Typen" Width="150" FontFamily="Gauge Heavy" />
+                    <Button x:Name="SwapTypeButton" Content="Tausche" Margin="5,5,5,5" FontFamily="Gauge Heavy" Click="ClickBtn_SwapItem" />
+                </StackPanel>
+                <ListBox x:Name="AllTypesListBox" Width="200" SelectionChanged="SelectionChanged_ListBox"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="TribeStoryLabel" Margin="5,5,5,5" FontFamily="Gauge Heavy" FontSize="14" Foreground="ForestGreen"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Border BorderThickness="1" BorderBrush="Black" Margin="10,397,664,10" Background="#FFB6B6B6">
+            <Button Content="Return" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="38" Width="122" 
+                    FontSize="16" FontFamily="Gauge Heavy" Click="BtnClick_ReturnMain" />
+        </Border>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="141,397,533,10" Background="#FFB6B6B6">
+            <Button x:Name="SaveBtn" Content="Save" IsEnabled="False" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="38" Width="122" 
+                    FontSize="16" FontFamily="Gauge Heavy" Click="Click_Save"/>
+        </Border>
+    </Grid>
+</Page>

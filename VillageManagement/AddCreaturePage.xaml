@@ -15,7 +15,7 @@
             </Border>
         </Label>
 
-        <StackPanel Orientation="Vertical" Margin="10,98,10,58">
+        <StackPanel Orientation="Vertical" Margin="10,60,10,58">
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Eigenschaft" FontSize="13" FontWeight="Bold" FontFamily="Gauge Heavy"/>
                 <Label Width="200" Content="Wert" HorizontalAlignment="Left" FontSize="13" FontWeight="Bold" FontFamily="Gauge Heavy" />
@@ -28,17 +28,17 @@
             <StackPanel Orientation="Horizontal" Margin="0, 3, 0, 3">
                 <Label Content="Alter" Width="150" />
                 <TextBox Width="200" KeyUp="Keyup_CheckAge"  />
-                <Label x:Name="EmailValidationLabel" />
+                <Label x:Name="FoundationValidationLabel" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 3, 0, 3">
                 <Label Content="Type:" Width="150" FontWeight="Bold" FontFamily="Gauge Heavy" FontSize="13" />
-                <ListBox x:Name="TypeListBox" Width="200" SelectedItem="1" SelectionChanged="SelectionChanged_TypeListBox" />
+                <ListBox x:Name="TypeListBox" Width="200" SelectionChanged="SelectionChanged_TypeListBox" Height="100" />
                 <Label Content="Stamm:" Width="100" FontWeight="Bold" FontFamily="Gauge Heavy" FontSize="13" />
-                <ListBox x:Name="TribesListBox" Width="280" Height="80" DisplayMemberPath="Name" SelectedItem="1"
+                <ListBox x:Name="TribesListBox" Width="280" Height="100" DisplayMemberPath="Name" SelectedItem="1" 
                          SelectionChanged="SelectionChangedListBox_ClickTribe" VerticalAlignment="Top" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label x:Name="CreatureStoryLabel" FontSize="16"></Label>
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" Height="121" Width="759" Background="#FFB9BBBB" HorizontalAlignment="Left">
+                <Label x:Name="CreatureStoryLabel" FontSize="16" FontFamily="Gauge Heavy" Foreground="ForestGreen" Margin="5,5,5,5" Width="750" Height="110" VerticalAlignment="Top"/>
             </StackPanel>
         </StackPanel>
 

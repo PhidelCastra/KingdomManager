@@ -48,7 +48,7 @@ namespace VillageManagement.Library.Items
         /// <returns>True if the item was not in the List already or max count was reached, otherwise false.</returns>
         public bool Add(Item item)
         {
-            if(_items.Count + 1 >= MaxCount)
+            if(_items.Count >= MaxCount)
             {
                 return false;
             }

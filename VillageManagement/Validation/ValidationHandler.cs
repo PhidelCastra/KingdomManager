@@ -48,7 +48,7 @@ namespace VillageManagement.Validation
         /// <returns>A ValidationMessage with the corresponding result.</returns>
         public ValidationMessage CheckTextBoxInputForRange(TextBox textBox, int maxChars)
         {
-            if(textBox.Text.Length < 1)
+            if(textBox.Text == null || textBox.Text.Length < 1)
             {
                 return new ValidationMessage {
                     IsValid = false,
