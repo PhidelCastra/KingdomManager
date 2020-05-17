@@ -37,9 +37,13 @@
                     <Label Content="Alter" Width="150" />
                     <Label x:Name="CurrentAgeLabel" Width="150"/>
                     <TextBox x:Name="AgeTextBox"  Width="200" KeyUp="Keyup_CheckAge"  />
-                    <Label x:Name="EmailValidationLabel" />
+                    <Label x:Name="AlterValidationLabel" />
                 </StackPanel>
-
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <Label Content="Stammesführer" Width="150" />
+                    <Label x:Name="CurrentChiefLabel" Width="150" />
+                    <CheckBox x:Name="ChiefCheckBox" Width="200" Checked="CheckBox_IsChief" Unchecked="CheckBox_IsChief" />
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <Label x:Name="MessageLabel" FontFamily="Gauge Heavy" />
                 </StackPanel>

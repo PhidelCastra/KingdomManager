@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using VillageManagement.Library.BaseItems;
 using VillageManagement.Library.Creatures;
 using VillageManagement.Library.Items;
+using VillageManagement.Library.Tribes;
 using VillageManagement.Validation;
 
 namespace VillageManagement
@@ -35,11 +36,14 @@ namespace VillageManagement
 
         private string _newName;
         private int? _newAge;
+        private bool _isChiefChecked = false;
 
         private string _ageNotANumberMsg = "Age should be a number!";
         private string _maxNumberIs = "Maximum number of characters is '{0}'";
 
         private ValidationHandler _validationHandler;
+
+        Tribe<Creature> currentTribe = null;
 
         public CharEditPage()
         {
@@ -56,6 +60,9 @@ namespace VillageManagement
             _defaultTextColor = Brushes.Black;
 
             CurrentNameHeaderLabel.Content = ComponentService.SelectedCreature.Name + $" ({ComponentService.SelectedCreature.CreatureType})";
+
+            SetCurrentTribe();
+            StartPrepareCheckBox();
         }
 
         private void BtnClick_ReturnMain(object sender, RoutedEventArgs e)
@@ -67,6 +74,7 @@ namespace VillageManagement
         {
             ComponentService.SelectedCreature.Name = _newName != null ? _newName : ComponentService.SelectedCreature.Name;
             ComponentService.SelectedCreature.Age = _newAge != null ? (int)_newAge : ComponentService.SelectedCreature.Age;
+            currentTribe.Chief = ComponentService.SelectedCreature;
 
             foreach(var tribe in ComponentService.Kingdom.Tribes)
             {
@@ -80,6 +88,11 @@ namespace VillageManagement
 
             CurrentNameLabel.Content = ComponentService.SelectedCreature.Name;
             CurrentAgeLabel.Content = ComponentService.SelectedCreature.Age;
+            CurrentChiefLabel.Content = ComponentService.SelectedCreature.IsChief;
+
+            SetStartValues();
+
+            CheckSaveBtn();
         }
 
         /// <summary>
@@ -100,7 +113,7 @@ namespace VillageManagement
 
                 var msg = string.Format(_maxNumberIs, _ageTxtMaxLength);
 
-                _validationHandler.SetBadNewsLabel(EmailValidationLabel, msg);
+                _validationHandler.SetBadNewsLabel(AlterValidationLabel, msg);
                 return;
             }
 
@@ -109,13 +122,13 @@ namespace VillageManagement
             {
                 newAgeTxtBox.Foreground = Brushes.Red;
 
-                _validationHandler.SetBadNewsLabel(EmailValidationLabel, _ageNotANumberMsg);
+                _validationHandler.SetBadNewsLabel(AlterValidationLabel, _ageNotANumberMsg);
                 return;
             }
 
             newAgeTxtBox.Foreground = _defaultTextColor;
 
-            _validationHandler.SetDefaultLabel(EmailValidationLabel);
+            _validationHandler.SetDefaultLabel(AlterValidationLabel);
 
             _isAgeValid = true;
             _newAge = ConvertStringToInt(newAgeTxtBox.Text);
@@ -163,7 +176,8 @@ namespace VillageManagement
         {
             if(_isAgeValid && AgeTextBox.Text != string.Empty && NameTextBox.Text == string.Empty ||
                 _isNameValid && NameTextBox.Text != string.Empty && AgeTextBox.Text == string.Empty || 
-                _isNameValid && _isAgeValid && AgeTextBox.Text != string.Empty || NameTextBox.Text != string.Empty)
+                _isNameValid && _isAgeValid && AgeTextBox.Text != string.Empty || NameTextBox.Text != string.Empty ||
+                _isChiefChecked != ComponentService.SelectedCreature.IsChief)
             {
                 SaveBtn.IsEnabled = true;
                 return;
@@ -180,6 +194,43 @@ namespace VillageManagement
             }
 
             return nr;
+        }
+
+        private void StartPrepareCheckBox()
+        {
+            if (!ComponentService.SelectedCreature.IsChief)
+                return;
+            ChiefCheckBox.IsChecked = true;
+        }
+
+        private void CheckBox_IsChief(object sender, RoutedEventArgs e)
+        {
+          var checkBox = sender as CheckBox;
+            _isChiefChecked = !_isChiefChecked;
+
+            CheckSaveBtn();
+        }
+
+        private void SetCurrentTribe()
+        {
+            ComponentService.Kingdom.Tribes.ForEach(tribe =>
+                    tribe.Tribesmen.ForEach(tm => {
+                        if (tm.CreatureID == ComponentService.SelectedCreature.CreatureID)
+                        {
+                            currentTribe = tribe;
+                        }
+                    }));
+
+            if (currentTribe == null) { throw new Exception("CreatureID searching was failed."); }
+        }
+
+        private void SetStartValues()
+        {
+            _newAge = null;
+            _newName = null;
+
+            NameTextBox.Text = string.Empty;
+            AgeTextBox.Text = string.Empty;
         }
     }
 }

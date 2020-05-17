@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VillageManagement.Library.BaseItems;
+using VillageManagement.Library.Interfaces;
 using VillageManagement.Library.Items;
 
 namespace VillageManagement.Library.Creatures
 {
-    public abstract class Creature
+    public abstract class Creature : IInhabitant
     {
         /// <summary>
         /// Counts the created creatures and set as ID. Should be increments by one after each instantiating.
@@ -113,6 +114,14 @@ namespace VillageManagement.Library.Creatures
             });
 
             return power;
+        }
+
+        public double Taxes(double taxesValue)
+        {
+            double total = 0;
+            if(taxesValue == 0) { return total; }
+            Items.GetWeapons().ForEach(w => total += taxesValue);
+            return total;
         }
     }
 }

@@ -29,14 +29,13 @@ namespace VillageManagement
         /// </summary>
         /// <param name="creatures">Tribe to calculate it´s taxes.</param>
         /// <returns>Taxes value, dependent from each item.</returns>
-        public float CalculateTaxesOfTribe(List<Creature> creatures)
+        public double CalculateTaxesOfTribe(List<Creature> creatures)
         {
-            var taxes = 0;
-            creatures.ForEach(c => {
-                taxes += c.Items.Count();
+            double taxes = 0;
+            creatures.ForEach(creature => {
+                taxes += creature.Taxes(_taxesPerItem);
             });
-
-            return taxes * TaxesPerItem;
+            return taxes;
         }
     }
 }

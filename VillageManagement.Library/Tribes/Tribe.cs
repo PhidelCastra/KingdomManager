@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using VillageManagement.ExceptionHandling.Exceptions;
 using VillageManagement.Library.Creatures;
+using VillageManagement.Library.Jobs;
 
 namespace VillageManagement.Library.Tribes
 {
@@ -41,7 +42,10 @@ namespace VillageManagement.Library.Tribes
                     throw new MissingMemberException($"'{value.Name}' is not member of this Tribe - Adding to chief is not possible.");
                 }
 
-                if(_chief != null) { _chief.IsChief = false; }
+                if(_chief != null) {
+                    _chief.IsChief = false;
+                }
+
                 _chief = value;
                 _chief.IsChief = true;
             } 

@@ -4,10 +4,12 @@ using System.Text;
 using VillageManagement.Library.Creatures;
 using VillageManagement.Library.Items;
 using VillageManagement.Library.Tribes;
+using VillageManagement.Library.Interfaces;
+using System.Linq;
 
 namespace VillageManagement.Library
 {
-    public class Kingdom
+    public class Kingdom : IManagement
     {   
         // Just for prevent loading for some functions of this class.
         private bool _loaded;
@@ -22,9 +24,23 @@ namespace VillageManagement.Library
         /// </summary>
         public List<Tribe<Creature>> Tribes { get; private set; }
 
+
+        private double _baseTaxes;
+        public double BaseTaxes { set { 
+                if(value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Taxes value must be higher than 0.");
+                }
+
+                _baseTaxes = value;
+            } 
+        }
+
         /* Constructor */
-        public Kingdom()
+        public Kingdom(double baseTaxes)
         {
+            _baseTaxes = baseTaxes;
+
             Tribes = new List<Tribe<Creature>>();
 
             _itemHandler = new ItemHandler();
@@ -152,6 +168,43 @@ namespace VillageManagement.Library
 
             Tribes.Add(tribe1);
             Tribes.Add(tribe2);
+        }
+
+        /// <summary>
+        /// Gets taxes total from all tribes with tribemembers.
+        /// </summary>
+        /// <returns>Complete added taxes value.</returns>
+        public double TotalTaxes()
+        {
+            double taxes = 0;
+            if(_baseTaxes == 0) { return taxes; }
+            Tribes.ForEach(tribe => {
+                tribe.Tribesmen.ForEach(tm => {
+                    taxes += tm.Taxes(_baseTaxes);
+                });
+            });
+
+            return taxes;
+        }
+
+        /// <summary>
+        /// Gets all inhabitants of all existing Tribes.
+        /// </summary>
+        /// <returns>List with all objects with corresponding interface.</returns>
+        public List<IInhabitant> AllInhabitants()
+        {
+            var inhabitants = new List<IInhabitant>();
+            Tribes.ForEach(tribe => inhabitants.AddRange(tribe.Tribesmen));
+            return inhabitants;
+        }
+
+        /// <summary>
+        /// Gets all existing Chiefs.
+        /// </summary>
+        /// <returns>List of objects which implements the IChief interface.</returns>
+        public List<IChief> AllChiefs()
+        {
+            return Tribes.Select(tribe => (IChief)tribe.Chief).ToList();
         }
     }
 }

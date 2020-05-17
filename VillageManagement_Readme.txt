@@ -1,4 +1,4 @@
-Village Management Readme
+Village Management/Kingdom management Readme
 
 Zur Aufgabe "P1 Dorfverwaltung":
 

@@ -42,7 +42,7 @@ namespace VillageManagement
 
             if(ComponentService.Kingdom == null)
             {
-                _kingdom = new Kingdom();
+                _kingdom = new Kingdom(_taxesForOneItem);
                 _kingdom.LoadPreconditions();
             }
             else
@@ -62,26 +62,9 @@ namespace VillageManagement
 
             _selectedTribe = TribesCb.SelectedItem as Tribe<Creature>;
 
-            TotalTaxesLabel.Content = GetTotalTaxes();
+            TotalTaxesLabel.Content = _kingdom.TotalTaxes();
 
             UpdateTypeLabel();
-        }
-
-        /// <summary>
-        /// Calculate and gets the total taxes value for all tribes.
-        /// </summary>
-        /// <returns>All taxes added up.</returns>
-        private float GetTotalTaxes()
-        {
-            var itemCount = 0;
-            _kingdom.Tribes.ForEach(tribe =>
-            {
-                tribe.Tribesmen.ForEach(tm => {
-                    itemCount += tm.Items.GetWeapons().Count;
-                }); 
-            });
-
-            return itemCount * _taxesForOneItem;
         }
 
         /// <summary>
